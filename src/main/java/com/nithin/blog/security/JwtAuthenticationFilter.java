@@ -20,6 +20,60 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
+
+// @Component
+// @RequiredArgsConstructor  // This annotation injects the required dependencies via constructor
+// public class JwtAuthenticationFilter extends OncePerRequestFilter {
+
+//     private final UserDetailsService userDetailsService;
+//     private final JwtTokenHelper jwtTokenHelper;
+
+//     @Override
+//     protected void doFilterInternal(
+//             @NonNull HttpServletRequest request,
+//             @NonNull HttpServletResponse response,
+//             @NonNull FilterChain filterChain)
+//             throws ServletException, IOException {
+
+//         String authToken = request.getHeader("Authorization");
+//         String username = null;
+//         String token = null;
+        
+//         if (authToken != null && authToken.startsWith("Bearer ")) {
+//             token = authToken.substring(7);
+//             try {
+//                 username = this.jwtTokenHelper.extractUsername(token);
+//             } catch (IllegalArgumentException e) {
+//                 System.out.println("Unable to get the jwt token");
+//             } catch (ExpiredJwtException ex) {
+//                 System.out.println("JWT Token has expired");
+//             } catch (MalformedJwtException e) {
+//                 System.out.println("Invalid JWT Token");
+//             }
+//         }
+        
+//         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+//             UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
+//             if (this.jwtTokenHelper.isTokenValid(token, userDetails)) {
+//                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
+//                         userDetails,
+//                         null,
+//                         userDetails.getAuthorities());
+//                 usernamePasswordAuthenticationToken
+//                         .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+//                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+//             } else {
+//                 System.out.println("Invalid or Expired JWT token");
+//             }
+//         } else {
+//             System.out.println("username is null or context is not null");
+//         }
+
+//         filterChain.doFilter(request, response);
+//     }
+// }
+
+
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
@@ -29,6 +83,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Autowired
     private JwtTokenHelper jwtTokenHelper;
+
+
 
     @Override
     protected void doFilterInternal(

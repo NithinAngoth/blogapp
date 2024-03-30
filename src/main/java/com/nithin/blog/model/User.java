@@ -1,3 +1,4 @@
+
 package com.nithin.blog.model;
 
 import java.util.ArrayList;
@@ -53,7 +54,7 @@ public class User implements UserDetails {
     private List<Post> posts = new ArrayList<>();
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER) //remainder the changed the code to user -> user_id and role-> role_id
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role", referencedColumnName = "id"))
     private List<Role> roles = new ArrayList<>();
 
     @Override
